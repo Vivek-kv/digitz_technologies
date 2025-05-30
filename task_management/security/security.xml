@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="group_task_manager" model="res.groups">
+        <field name="name">Task Manager</field>
+        <field name="category_id" ref="base.module_category_services_task_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+</odoo>
