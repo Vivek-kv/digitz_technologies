@@ -133,7 +133,7 @@
             <search>
                 <field name="name" string="Task Name"/>
                 <field name="assigned_user"/>
-                <filter string="High Priority" name="high_priority" domain="[('priority','=','high')]"/>
+                <filter string="High Priority" name="high_priority" domain="[('priority','=','3')]"/>
                 <filter string="Overdue" name="overdue" domain="[('due_date','&lt;',context_today())]"/>
                 <group expand="0" string="Group By">
                     <filter string="Status" name="status" context="{'group_by':'status'}"/>
