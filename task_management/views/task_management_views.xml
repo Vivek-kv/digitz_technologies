@@ -57,8 +57,8 @@
                                 </tree>
                                 <form>
                                     <group>
-                                        <field name="creation_date" readonly="1" groups="base.group_user"/>
-                                        <field name="user_id" widget="many2one" readonly="1" groups="base.group_user"/>
+                                        <field name="creation_date" groups="task_management.group_task_manager"/>
+                                        <field name="user_id" widget="many2one" groups="task_management.group_task_manager"/>
                                         <field name="comment"/>
                                     </group>
                                 </form>
@@ -66,6 +66,13 @@
                         </page>
                     </notebook>
                 </sheet>
+
+                <div class="oe_chatter">
+                     <field name="message_follower_ids"/>
+                     <field name="activity_ids"/>
+                     <field name="message_ids"/>
+                </div>
+
             </form>
         </field>
     </record>

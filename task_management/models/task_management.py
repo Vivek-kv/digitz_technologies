@@ -53,4 +53,35 @@ class TaskManagement(models.Model):
         return res
 
     def import_tasks_from_api(self):
-        print('testing..........')
+        try:
+            response = requests.get(
+                'https://jsonplaceholder.typicode.com/todos', timeout=10)
+            response.raise_for_status()
+            tasks_data = response.json()
+
+            created_count = 0
+            for task_data in tasks_data:
+                existing_task = self.search(
+                    [('name', '=', task_data.get('title'))], limit=1)
+                if not existing_task:
+                    self.create({
+                        'name': task_data.get('title'),
+                        'description': f"Imported from API. User ID: {task_data.get('id')}",
+                        'status': 'done' if task_data.get('completed') else 'draft',
+                        'priority': '2',
+                    })
+                    created_count += 1
+
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': f"Successfully imported {created_count} tasks!",
+                    'type': 'rainbow_man',
+                }
+            }
+        except requests.exceptions.RequestException as e:
+            _logger.error("Error importing tasks: %s", e)
+            raise UserError(_("Error connecting to API: %s") % e)
+        except Exception as e:
+            _logger.error("Error processing API data: %s", e)
+            raise UserError(_("Error processing API data: %s") % e)
